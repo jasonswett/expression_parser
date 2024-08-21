@@ -1,10 +1,18 @@
 class Expression
   def self.parse(value)
-    new
+    new(value)
   end
 
-  def value
-    5
+  def initialize(value)
+    if value.length == 1
+      @root = value.to_i
+    else
+      @root = "*"
+    end
+  end
+
+  def root
+    @root
   end
 
   def left_child
