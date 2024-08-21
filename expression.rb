@@ -6,13 +6,13 @@ class Expression
   end
 
   def initialize(value)
-    if value.length == 1
-      @root = value.to_i
-    else
-      parts = value.split("*")
+    if value.include?("x")
+      parts = value.split("")
       @left_child = parts.first.to_i
       @right_child = parts.last
       @root = "*"
+    else
+      @root = value.to_i
     end
   end
 end
