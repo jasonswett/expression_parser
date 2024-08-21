@@ -1,4 +1,6 @@
 class Expression
+  attr_reader :root, :left_child, :right_child
+
   def self.parse(value)
     new(value)
   end
@@ -11,16 +13,5 @@ class Expression
       @left_child = parts.first.to_i
       @root = "*"
     end
-  end
-
-  def root
-    @root
-  end
-
-  def left_child
-    @left_child
-  end
-
-  def right_child
   end
 end
