@@ -7,6 +7,8 @@ class Expression
     if value.length == 1
       @root = value.to_i
     else
+      parts = value.split("*")
+      @left_child = parts.first.to_i
       @root = "*"
     end
   end
@@ -16,6 +18,7 @@ class Expression
   end
 
   def left_child
+    @left_child
   end
 
   def right_child

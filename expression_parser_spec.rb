@@ -23,5 +23,9 @@ RSpec.describe "expression parser" do
     it "has a root of *" do
       expect(expression.root).to eq("*")
     end
+
+    it "has a left child of 2" do
+      expect(expression.left_child).to eq(2)
+    end
   end
 end
