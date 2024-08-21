@@ -11,6 +11,7 @@ class Expression
     else
       parts = value.split("*")
       @left_child = parts.first.to_i
+      @right_child = parts.last
       @root = "*"
     end
   end

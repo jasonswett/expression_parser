@@ -27,5 +27,9 @@ RSpec.describe "expression parser" do
     it "has a left child of 2" do
       expect(expression.left_child).to eq(2)
     end
+
+    it "has a right child of 'x'" do
+      expect(expression.right_child).to eq("x")
+    end
   end
 end
