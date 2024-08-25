@@ -1,3 +1,5 @@
+require_relative "./token"
+
 class Expression
   attr_reader :root, :left_child, :right_child
   OPERATORS = %w(+ / *)
@@ -11,33 +13,25 @@ class Expression
 
     OPERATORS.each do |operator|
       if value.include?(operator)
-        @root = operator
+        @root = Token.new(operator)
         @left_child, @right_child = split_on(operator)
         return
       end
     end
 
-    if constant?(value)
-      @root = value.to_i
-      @left_child, @right_child = nil, nil
+    if Token.new(value).constant?
+      @root = Token.new(value).clean!
+      @left_child, @right_child = Token.new(nil), Token.new(nil)
       return
     end
 
-    @root = "*"
+    @root = Token.new("*")
     @left_child, @right_child = split_on("")
-  end
-
-  def constant?(value)
-    value.to_i.to_s == value.strip
   end
 
   def split_on(character)
     parts = @value.split(character)
     children = [parts.first, parts.last]
-    children.map { |c| clean(c) }
-  end
-
-  def clean(value)
-    constant?(value) ? value.to_i : value.strip
+    children.map { |c| Token.new(c).clean! }
   end
 end

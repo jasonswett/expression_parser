@@ -5,15 +5,15 @@ RSpec.describe "expression parser" do
     let!(:expression) { Expression.parse("5") }
 
     it "has a root of 5" do
-      expect(expression.root).to eq(5)
+      expect(expression.root.value).to eq(5)
     end
 
     it "has no left child" do
-      expect(expression.left_child).to be nil
+      expect(expression.left_child.value).to be nil
     end
 
     it "has no right child" do
-      expect(expression.right_child).to be nil
+      expect(expression.right_child.value).to be nil
     end
   end
 
@@ -21,15 +21,15 @@ RSpec.describe "expression parser" do
     let!(:expression) { Expression.parse("2*x") }
 
     it "has a root of *" do
-      expect(expression.root).to eq("*")
+      expect(expression.root.value).to eq("*")
     end
 
     it "has a left child of 2" do
-      expect(expression.left_child).to eq(2)
+      expect(expression.left_child.value).to eq(2)
     end
 
     it "has a right child of 'x'" do
-      expect(expression.right_child).to eq("x")
+      expect(expression.right_child.value).to eq("x")
     end
   end
 
@@ -38,15 +38,15 @@ RSpec.describe "expression parser" do
       let!(:expression) { Expression.parse("2x") }
 
       it "has a root of *" do
-        expect(expression.root).to eq("*")
+        expect(expression.root.value).to eq("*")
       end
 
       it "has a left child of 2" do
-        expect(expression.left_child).to eq(2)
+        expect(expression.left_child.value).to eq(2)
       end
 
       it "has a right child of 'x'" do
-        expect(expression.right_child).to eq("x")
+        expect(expression.right_child.value).to eq("x")
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "expression parser" do
       let!(:expression) { Expression.parse("2y") }
 
       it "has a root of *" do
-        expect(expression.root).to eq("*")
+        expect(expression.root.value).to eq("*")
       end
     end
   end
@@ -63,15 +63,15 @@ RSpec.describe "expression parser" do
     let!(:expression) { Expression.parse("x/3") }
 
     it "has a root of /" do
-      expect(expression.root).to eq("/")
+      expect(expression.root.value).to eq("/")
     end
 
     it "has a left child of 'x'" do
-      expect(expression.left_child).to eq("x")
+      expect(expression.left_child.value).to eq("x")
     end
 
     it "has a right child of 3" do
-      expect(expression.right_child).to eq(3)
+      expect(expression.right_child.value).to eq(3)
     end
   end
 
@@ -79,15 +79,15 @@ RSpec.describe "expression parser" do
     let!(:expression) { Expression.parse("x + 5") }
 
     it "has a root of +" do
-      expect(expression.root).to eq("+")
+      expect(expression.root.value).to eq("+")
     end
 
     it "has a left child of 'x'" do
-      expect(expression.left_child).to eq("x")
+      expect(expression.left_child.value).to eq("x")
     end
 
     it "has a right child of 5" do
-      expect(expression.right_child).to eq(5)
+      expect(expression.right_child.value).to eq(5)
     end
   end
 end
