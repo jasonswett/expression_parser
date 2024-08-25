@@ -25,8 +25,8 @@ class Expression
       return
     end
 
-    @left_child, @right_child = split_on("")
     @root = "*"
+    @left_child, @right_child = split_on("")
   end
 
   def split_on(character)
