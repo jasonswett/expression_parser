@@ -28,15 +28,16 @@ class Expression
   end
 
   def constant?(value)
-    value.to_i.to_s == value
+    value.to_i.to_s == value.strip
   end
 
   def split_on(character)
     parts = @value.split(character)
-    [make_numeric(parts.first), make_numeric(parts.last)]
+    children = [parts.first, parts.last]
+    children.map { |c| clean(c) }
   end
 
-  def make_numeric(value)
-    constant?(value) ? value.to_i : value
+  def clean(value)
+    constant?(value) ? value.to_i : value.strip
   end
 end
