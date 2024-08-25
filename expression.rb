@@ -1,5 +1,6 @@
 class Expression
   attr_reader :root, :left_child, :right_child
+  OPERATORS = %w(+ / *)
 
   def self.parse(value)
     new(value)
@@ -8,21 +9,12 @@ class Expression
   def initialize(value)
     @value = value
 
-    if value.include?("+")
-      @root = "+"
-      @left_child, @right_child = split_on("+")
-      return
-    end
-
-    if value.include?("/")
-      @root = "/"
-      @left_child, @right_child = split_on("/")
-      return
-    end
-
-    if value.include?("*")
-      @root = "*"
-      @left_child, @right_child = split_on("*")
+    OPERATORS.each do |operator|
+      if value.include?(operator)
+        @root = operator
+        @left_child, @right_child = split_on(operator)
+        return
+      end
     end
 
     if constant?(value)
