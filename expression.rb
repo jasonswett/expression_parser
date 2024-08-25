@@ -19,7 +19,7 @@ class Expression
       @left_child, @right_child = split_on("*")
     end
 
-    if value.to_i.to_s == value
+    if constant?(value)
       @root = value.to_i
       @left_child, @right_child = nil, nil
       return
@@ -29,16 +29,16 @@ class Expression
     @left_child, @right_child = split_on("")
   end
 
+  def constant?(value)
+    value.to_i.to_s == value
+  end
+
   def split_on(character)
     parts = @value.split(character)
     [make_numeric(parts.first), make_numeric(parts.last)]
   end
 
   def make_numeric(value)
-    if value.to_i.to_s == value
-      value.to_i
-    else
-      value
-    end
+    constant?(value) ? value.to_i : value
   end
 end
