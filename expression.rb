@@ -21,6 +21,7 @@ class Expression
 
     if value.to_i.to_s == value
       @root = value.to_i
+      @left_child, @right_child = nil, nil
       return
     end
 
