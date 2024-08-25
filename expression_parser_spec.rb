@@ -34,18 +34,28 @@ RSpec.describe "expression parser" do
   end
 
   context "when the expression involves multiplication without an explicit operator" do
-    let!(:expression) { Expression.parse("2x") }
+    context "variable is 'x'" do
+      let!(:expression) { Expression.parse("2x") }
 
-    it "has a root of *" do
-      expect(expression.root).to eq("*")
+      it "has a root of *" do
+        expect(expression.root).to eq("*")
+      end
+
+      it "has a left child of 2" do
+        expect(expression.left_child).to eq(2)
+      end
+
+      it "has a right child of 'x'" do
+        expect(expression.right_child).to eq("x")
+      end
     end
 
-    it "has a left child of 2" do
-      expect(expression.left_child).to eq(2)
-    end
+    context "variable is not 'x'" do
+      let!(:expression) { Expression.parse("2y") }
 
-    it "has a right child of 'x'" do
-      expect(expression.right_child).to eq("x")
+      it "has a root of *" do
+        expect(expression.root).to eq("*")
+      end
     end
   end
 

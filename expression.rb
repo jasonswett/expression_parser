@@ -14,12 +14,18 @@ class Expression
       return
     end
 
-    if value.include?("x")
-      @left_child, @right_child = split_on("")
+    if value.include?("*")
       @root = "*"
-    else
-      @root = value.to_i
+      @left_child, @right_child = split_on("*")
     end
+
+    if value.to_i.to_s == value
+      @root = value.to_i
+      return
+    end
+
+    @left_child, @right_child = split_on("")
+    @root = "*"
   end
 
   def split_on(character)
