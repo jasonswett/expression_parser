@@ -6,21 +6,32 @@ class Expression
   end
 
   def initialize(value)
+    @value = value
+
     if value.include?("/")
       @root = "/"
-      parts = value.split("/")
-      @left_child = parts.first
-      @right_child = parts.last.to_i
+      @left_child, @right_child = split_on("/")
       return
     end
 
     if value.include?("x")
-      parts = value.split("")
-      @left_child = parts.first.to_i
-      @right_child = parts.last
+      @left_child, @right_child = split_on("")
       @root = "*"
     else
       @root = value.to_i
+    end
+  end
+
+  def split_on(character)
+    parts = @value.split(character)
+    [make_numeric(parts.first), make_numeric(parts.last)]
+  end
+
+  def make_numeric(value)
+    if value.to_i.to_s == value
+      value.to_i
+    else
+      value
     end
   end
 end
