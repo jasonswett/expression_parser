@@ -6,6 +6,14 @@ class Expression
   end
 
   def initialize(value)
+    if value.include?("/")
+      @root = "/"
+      parts = value.split("/")
+      @left_child = parts.first
+      @right_child = parts.last.to_i
+      return
+    end
+
     if value.include?("x")
       parts = value.split("")
       @left_child = parts.first.to_i
