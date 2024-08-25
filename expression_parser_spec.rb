@@ -74,4 +74,12 @@ RSpec.describe "expression parser" do
       expect(expression.right_child).to eq(3)
     end
   end
+
+  context "addition" do
+    let!(:expression) { Expression.parse("x + 5") }
+
+    it "has a root of +" do
+      expect(expression.root).to eq("+")
+    end
+  end
 end

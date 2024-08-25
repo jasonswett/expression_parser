@@ -8,6 +8,12 @@ class Expression
   def initialize(value)
     @value = value
 
+    if value.include?("+")
+      @root = "+"
+      @left_child, @right_child = split_on("+")
+      return
+    end
+
     if value.include?("/")
       @root = "/"
       @left_child, @right_child = split_on("/")
