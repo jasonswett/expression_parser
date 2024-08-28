@@ -9,38 +9,42 @@ class Expression
   end
 
   def initialize(value)
-    @value = value.strip
+    value.strip!
 
-    if Token.new(value).constant?
-      @root = Token.new(value).clean!
+    if constant?(value)
+      @root = Token.new(value.to_i)
       @left_child, @right_child = Token.new(nil), Token.new(nil)
       return
     end
 
-    if @value.length == 1
-      @root = Token.new(@value).clean!
+    if value.length == 1
+      @root = Token.new(value)
       return
     end
 
     OPERATORS.each do |operator|
       if value.include?(operator)
         @root = Token.new(operator)
-        @left_child, @right_child = split_on(operator)
+        @left_child, @right_child = split_on(value, operator)
         return
       end
     end
 
     @root = Token.new("*")
-    @left_child, @right_child = split_on("")
+    @left_child, @right_child = split_on(value, "")
   end
 
-  def split_on(operator)
-    @value.split(operator).map do |child_expression_value|
+  def split_on(value, operator)
+    value.split(operator).map do |child_expression_value|
       Expression.new(child_expression_value)
     end
   end
 
   def value
     @root.value
+  end
+
+  def constant?(value)
+    value.to_i.to_s == value.strip
   end
 end
