@@ -9,7 +9,7 @@ class Expression
   end
 
   def initialize(value)
-    @value = value
+    @value = value.strip
 
     OPERATORS.each do |operator|
       if value.include?(operator)
@@ -25,13 +25,22 @@ class Expression
       return
     end
 
+    if @value.length == 1
+      @root = Token.new(@value).clean!
+      return
+    end
+
     @root = Token.new("*")
     @left_child, @right_child = split_on("")
   end
 
-  def split_on(character)
-    parts = @value.split(character)
-    children = [parts.first, parts.last]
-    children.map { |c| Token.new(c).clean! }
+  def split_on(operator)
+    @value.split(operator).map do |child_expression_value|
+      Expression.new(child_expression_value)
+    end
+  end
+
+  def value
+    @root.value
   end
 end

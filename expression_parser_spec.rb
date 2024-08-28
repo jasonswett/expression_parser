@@ -90,4 +90,16 @@ RSpec.describe "expression parser" do
       expect(expression.right_child.value).to eq(5)
     end
   end
+
+  context "nesting" do
+    let!(:expression) { Expression.parse("2x + 5") }
+
+    it "has a root of +" do
+      expect(expression.root.value).to eq("+")
+    end
+
+    it "has a left child with a root of *" do
+      expect(expression.left_child.root.value).to eq("*")
+    end
+  end
 end
