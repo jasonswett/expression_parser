@@ -20,7 +20,10 @@ class Expression
     end
 
     if @value.include?("(")
-      left_child, right_child = @value.split(/[\(\)]/, 2).map { |v| Expression.new(v).parse }
+      left_child, right_child = @value.split(/[\(\)]/, 2).map do |value|
+        Expression.new(value).parse
+      end
+
       return ExpressionTree.new(
         root: "*",
         left_child:,
