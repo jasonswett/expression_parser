@@ -1,6 +1,6 @@
 require_relative "./token"
 
-class Expression
+class ExpressionTree
   attr_reader :root, :left_child, :right_child
   OPERATORS = %w(+ / *)
 
@@ -36,7 +36,7 @@ class Expression
 
   def split_on(value, operator)
     value.split(operator).map do |child_expression_value|
-      Expression.new(child_expression_value)
+      ExpressionTree.new(child_expression_value)
     end
   end
 
