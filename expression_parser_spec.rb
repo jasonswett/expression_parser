@@ -114,4 +114,20 @@ RSpec.describe "expression tree parser" do
       expect(expression_tree.right_child.value).to eq(5)
     end
   end
+
+  context "parentheses" do
+    let!(:expression) { Expression.new("6(x + 3)").parse }
+
+    it "has a root of *" do
+      expect(expression.root).to eq("*")
+    end
+
+    it "has a left child of 6" do
+      expect(expression.left_child.value).to eq(6)
+    end
+
+    it "has a right child with a root of +" do
+      expect(expression.right_child.root).to eq("+")
+    end
+  end
 end

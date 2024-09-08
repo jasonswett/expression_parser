@@ -19,6 +19,15 @@ class Expression
       return ExpressionTree.new(root: @value)
     end
 
+    if @value.include?("(")
+      left_child, right_child = @value.split(/[\(\)]/, 2).map { |v| Expression.new(v).parse }
+      return ExpressionTree.new(
+        root: "*",
+        left_child:,
+        right_child:
+      )
+    end
+
     OPERATORS.each do |operator|
       if @value.include?(operator)
         left_child, right_child = split_on(@value, operator)
