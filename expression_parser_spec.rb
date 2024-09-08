@@ -1,4 +1,5 @@
 require_relative "./expression"
+require "pry"
 
 RSpec.describe "expression parser" do
   context "the expression is a constant" do
@@ -108,6 +109,10 @@ RSpec.describe "expression parser" do
 
     it "has a left child with a right child of 'x'" do
       expect(expression.left_child.right_child.value).to eq("x")
+    end
+
+    it "has a right child of 5" do
+      expect(expression.right_child.value).to eq(5)
     end
   end
 end
