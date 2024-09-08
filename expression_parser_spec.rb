@@ -1,8 +1,8 @@
-require_relative "./expression_tree"
+require_relative "./expression"
 
 RSpec.describe "expression tree parser" do
   context "the expression tree is a constant" do
-    let!(:expression_tree) { ExpressionTree.parse("5") }
+    let!(:expression_tree) { Expression.new("5").parse }
 
     it "has a root of 5" do
       expect(expression_tree.root.value).to eq(5)
@@ -18,7 +18,7 @@ RSpec.describe "expression tree parser" do
   end
 
   context "when the expression tree involves multiplication with an explicit operator" do
-    let!(:expression_tree) { ExpressionTree.parse("2*x") }
+    let!(:expression_tree) { Expression.new("2*x").parse }
 
     it "has a root of *" do
       expect(expression_tree.root.value).to eq("*")
@@ -35,7 +35,7 @@ RSpec.describe "expression tree parser" do
 
   context "when the expression tree involves multiplication without an explicit operator" do
     context "variable is 'x'" do
-      let!(:expression_tree) { ExpressionTree.parse("2x") }
+      let!(:expression_tree) { Expression.new("2x").parse }
 
       it "has a root of *" do
         expect(expression_tree.root.value).to eq("*")
@@ -51,7 +51,7 @@ RSpec.describe "expression tree parser" do
     end
 
     context "variable is not 'x'" do
-      let!(:expression_tree) { ExpressionTree.parse("2y") }
+      let!(:expression_tree) { Expression.new("2y").parse }
 
       it "has a root of *" do
         expect(expression_tree.root.value).to eq("*")
@@ -60,7 +60,7 @@ RSpec.describe "expression tree parser" do
   end
 
   context "when the expression tree involves division" do
-    let!(:expression_tree) { ExpressionTree.parse("x/3") }
+    let!(:expression_tree) { Expression.new("x/3").parse }
 
     it "has a root of /" do
       expect(expression_tree.root.value).to eq("/")
@@ -76,7 +76,7 @@ RSpec.describe "expression tree parser" do
   end
 
   context "addition" do
-    let!(:expression_tree) { ExpressionTree.parse("x + 5") }
+    let!(:expression_tree) { Expression.new("x + 5").parse }
 
     it "has a root of +" do
       expect(expression_tree.root.value).to eq("+")
@@ -92,7 +92,7 @@ RSpec.describe "expression tree parser" do
   end
 
   context "nesting" do
-    let!(:expression_tree) { ExpressionTree.parse("2x + 5") }
+    let!(:expression_tree) { Expression.new("2x + 5").parse }
 
     it "has a root of +" do
       expect(expression_tree.root.value).to eq("+")
