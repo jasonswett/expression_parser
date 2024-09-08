@@ -12,19 +12,11 @@ class Expression
     @value.strip!
 
     if constant?(@value)
-      return ExpressionTree.new(
-        root: Token.new(@value.to_i),
-        left_child: Token.new(nil),
-        right_child: Token.new(nil)
-      )
+      return ExpressionTree.new(root: @value.to_i)
     end
 
     if @value.length == 1
-      return ExpressionTree.new(
-        root: Token.new(@value),
-        left_child: Token.new(nil),
-        right_child: Token.new(nil)
-      )
+      return ExpressionTree.new(root: @value)
     end
 
     OPERATORS.each do |operator|
@@ -32,7 +24,7 @@ class Expression
         left_child, right_child = split_on(@value, operator)
 
         return ExpressionTree.new(
-          root: Token.new(operator),
+          root: operator,
           left_child:,
           right_child:
         )
@@ -42,7 +34,7 @@ class Expression
     left_child, right_child = split_on(@value, "")
 
     ExpressionTree.new(
-      root: Token.new("*"),
+      root: "*",
       left_child:,
       right_child:
     )

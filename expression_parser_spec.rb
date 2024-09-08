@@ -5,15 +5,15 @@ RSpec.describe "expression tree parser" do
     let!(:expression_tree) { Expression.new("5").parse }
 
     it "has a root of 5" do
-      expect(expression_tree.root.value).to eq(5)
+      expect(expression_tree.root).to eq(5)
     end
 
     it "has no left child" do
-      expect(expression_tree.left_child.value).to be nil
+      expect(expression_tree.left_child).to be nil
     end
 
     it "has no right child" do
-      expect(expression_tree.right_child.value).to be nil
+      expect(expression_tree.right_child).to be nil
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "expression tree parser" do
     let!(:expression_tree) { Expression.new("2*x").parse }
 
     it "has a root of *" do
-      expect(expression_tree.root.value).to eq("*")
+      expect(expression_tree.root).to eq("*")
     end
 
     it "has a left child of 2" do
@@ -38,7 +38,7 @@ RSpec.describe "expression tree parser" do
       let!(:expression_tree) { Expression.new("2x").parse }
 
       it "has a root of *" do
-        expect(expression_tree.root.value).to eq("*")
+        expect(expression_tree.root).to eq("*")
       end
 
       it "has a left child of 2" do
@@ -54,7 +54,7 @@ RSpec.describe "expression tree parser" do
       let!(:expression_tree) { Expression.new("2y").parse }
 
       it "has a root of *" do
-        expect(expression_tree.root.value).to eq("*")
+        expect(expression_tree.root).to eq("*")
       end
     end
   end
@@ -63,7 +63,7 @@ RSpec.describe "expression tree parser" do
     let!(:expression_tree) { Expression.new("x/3").parse }
 
     it "has a root of /" do
-      expect(expression_tree.root.value).to eq("/")
+      expect(expression_tree.root).to eq("/")
     end
 
     it "has a left child of 'x'" do
@@ -79,7 +79,7 @@ RSpec.describe "expression tree parser" do
     let!(:expression_tree) { Expression.new("x + 5").parse }
 
     it "has a root of +" do
-      expect(expression_tree.root.value).to eq("+")
+      expect(expression_tree.root).to eq("+")
     end
 
     it "has a left child of 'x'" do
@@ -95,11 +95,11 @@ RSpec.describe "expression tree parser" do
     let!(:expression_tree) { Expression.new("2x + 5").parse }
 
     it "has a root of +" do
-      expect(expression_tree.root.value).to eq("+")
+      expect(expression_tree.root).to eq("+")
     end
 
     it "has a left child with a root of *" do
-      expect(expression_tree.left_child.root.value).to eq("*")
+      expect(expression_tree.left_child.root).to eq("*")
     end
 
     it "has a left child with a left child of 2" do
