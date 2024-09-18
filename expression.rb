@@ -2,7 +2,7 @@ require_relative "./config"
 require_relative "./expression_tree"
 
 class Expression
-  OPERATORS = %w(+ / *)
+  OPERATORS = %w(+ - / *)
 
   def initialize(value)
     @value = value
@@ -20,7 +20,8 @@ class Expression
     end
 
     if @value.include?("(")
-      match_data = @value.match(/(\d+)\(([^)]+)\)/)
+      regex = /([a-zA-Z\d]+)\(([^)]+)\)/
+      match_data = @value.match(regex)
       left_child = Expression.new(match_data[1]).parse
       right_child = Expression.new(match_data[2]).parse
 

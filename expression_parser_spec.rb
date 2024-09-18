@@ -91,6 +91,22 @@ RSpec.describe "expression parser" do
     end
   end
 
+  context "subtraction" do
+    let!(:expression_tree) { Expression.new("x - 5").parse }
+
+    it "has a root of -" do
+      expect(expression_tree.root).to eq("-")
+    end
+
+    it "has a left child of 'x'" do
+      expect(expression_tree.left_child.value).to eq("x")
+    end
+
+    it "has a right child of 5" do
+      expect(expression_tree.right_child.value).to eq(5)
+    end
+  end
+
   context "nesting" do
     let!(:expression_tree) { Expression.new("2x + 5").parse }
 
@@ -143,6 +159,38 @@ RSpec.describe "expression parser" do
 
       it "has a right child of 3" do
         expect(subexpression.right_child.value).to eq(3)
+      end
+    end
+  end
+
+  context "other parentheses" do
+    let!(:expression) { Expression.new("a(5 - b)").parse }
+
+    it "has a root of *" do
+      expect(expression.root).to eq("*")
+    end
+
+    it "has a left child of 'a'" do
+      expect(expression.left_child.value).to eq('a')
+    end
+
+    it "has a right child with a root of -" do
+      expect(expression.right_child.root).to eq("-")
+    end
+
+    context "subexpression (5 - b)" do
+      let!(:subexpression) { expression.right_child }
+
+      it "has a root of -" do
+        expect(subexpression.root).to eq("-")
+      end
+
+      it "has a left child of 5" do
+        expect(subexpression.left_child.value).to eq(5)
+      end
+
+      it "has a right child of 'b'" do
+        expect(subexpression.right_child.value).to eq("b")
       end
     end
   end
