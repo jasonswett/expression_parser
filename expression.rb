@@ -53,11 +53,11 @@ class Expression
   end
 
   def constant?(value)
-    @value.to_i.to_s == @value.strip
+    value.to_i.to_s == value.strip
   end
 
   def variable?(value)
-    @value.length == 1
+    value.length == 1
   end
 
   def split_on(value, operator)
