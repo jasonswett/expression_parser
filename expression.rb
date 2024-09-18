@@ -19,7 +19,7 @@ class Expression
       return ExpressionTree.new(root: @value)
     end
 
-    if @value.include?("(")
+    if contains_parentheses?(@value)
       regex = /([a-zA-Z\d]+)\(([^)]+)\)/
       match_data = @value.match(regex)
       left_child = Expression.new(match_data[1]).parse
@@ -59,6 +59,10 @@ class Expression
 
   def variable?(value)
     value.length == 1
+  end
+
+  def contains_parentheses?(value)
+    value.include?("(")
   end
 
   def split_on(value, operator)
