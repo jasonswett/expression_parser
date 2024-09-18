@@ -1,5 +1,6 @@
 require_relative "./config"
 require_relative "./expression_tree"
+require_relative "./parenthetical_expression"
 
 class Expression
   OPERATORS = %w(+ - / *)
@@ -20,16 +21,7 @@ class Expression
     end
 
     if contains_parentheses?(@value)
-      regex = /([a-zA-Z\d]+)\(([^)]+)\)/
-      match_data = @value.match(regex)
-      value_before_parentheses = Expression.new(match_data[1]).parse
-      value_inside_parentheses = Expression.new(match_data[2]).parse
-
-      return ExpressionTree.new(
-        root: "*",
-        left_child: value_before_parentheses,
-        right_child: value_inside_parentheses
-      )
+      return ParentheticalExpression.new(@value).parse
     end
 
     OPERATORS.each do |operator|
