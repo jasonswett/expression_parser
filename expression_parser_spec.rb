@@ -1,7 +1,7 @@
 require_relative "./expression"
 
-RSpec.describe "expression tree parser" do
-  context "the expression tree is a constant" do
+RSpec.describe "expression parser" do
+  context "the expression is a constant" do
     let!(:expression_tree) { Expression.new("5").parse }
 
     it "has a root of 5" do
@@ -17,7 +17,7 @@ RSpec.describe "expression tree parser" do
     end
   end
 
-  context "when the expression tree involves multiplication with an explicit operator" do
+  context "when the expression involves multiplication with an explicit operator" do
     let!(:expression_tree) { Expression.new("2*x").parse }
 
     it "has a root of *" do
@@ -33,7 +33,7 @@ RSpec.describe "expression tree parser" do
     end
   end
 
-  context "when the expression tree involves multiplication without an explicit operator" do
+  context "when the expression involves multiplication without an explicit operator" do
     context "variable is 'x'" do
       let!(:expression_tree) { Expression.new("2x").parse }
 
@@ -59,7 +59,7 @@ RSpec.describe "expression tree parser" do
     end
   end
 
-  context "when the expression tree involves division" do
+  context "when the expression involves division" do
     let!(:expression_tree) { Expression.new("x/3").parse }
 
     it "has a root of /" do
