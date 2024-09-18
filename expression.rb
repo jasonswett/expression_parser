@@ -22,11 +22,13 @@ class Expression
     if contains_parentheses?(@value)
       regex = /([a-zA-Z\d]+)\(([^)]+)\)/
       match_data = @value.match(regex)
+      value_before_parentheses = Expression.new(match_data[1]).parse
+      value_inside_parentheses = Expression.new(match_data[2]).parse
 
       return ExpressionTree.new(
         root: "*",
-        left_child: Expression.new(match_data[1]).parse,
-        right_child: Expression.new(match_data[2]).parse
+        left_child: value_before_parentheses,
+        right_child: value_inside_parentheses
       )
     end
 
