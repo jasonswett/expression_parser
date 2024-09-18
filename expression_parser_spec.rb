@@ -129,5 +129,21 @@ RSpec.describe "expression parser" do
     it "has a right child with a root of +" do
       expect(expression.right_child.root).to eq("+")
     end
+
+    context "subexpression (x + 3)" do
+      let!(:subexpression) { expression.right_child }
+
+      it "has a root of +" do
+        expect(subexpression.root).to eq("+")
+      end
+
+      it "has a left child of 'x'" do
+        expect(subexpression.left_child.value).to eq("x")
+      end
+
+      it "has a right child of 3" do
+        expect(subexpression.right_child.value).to eq(3)
+      end
+    end
   end
 end

@@ -20,9 +20,9 @@ class Expression
     end
 
     if @value.include?("(")
-      left_child, right_child = @value.split(/[\(\)]/, 2).map do |value|
-        Expression.new(value).parse
-      end
+      match_data = @value.match(/(\d+)\(([^)]+)\)/)
+      left_child = Expression.new(match_data[1]).parse
+      right_child = Expression.new(match_data[2]).parse
 
       return ExpressionTree.new(
         root: "*",
