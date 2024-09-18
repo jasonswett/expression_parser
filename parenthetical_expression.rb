@@ -1,5 +1,6 @@
 class ParentheticalExpression
-  REGEX = /([a-zA-Z\d]+)\(([^)]+)\)/
+  #REGEX = /([a-zA-Z\d]+)\(([^)]+)\)/
+  REGEX = /(.*?)\((.+)\)(.*)/
 
   def initialize(value)
     @value = value
@@ -8,19 +9,23 @@ class ParentheticalExpression
   def parse
     ExpressionTree.new(
       root: "*",
-      left_child: value_before_parentheses,
-      right_child: value_inside_parentheses
+      left_child: Expression.new(value_before_parentheses).parse,
+      right_child: Expression.new(value_inside_parentheses).parse
     )
+  end
+
+  def self.contains_parentheses?(value)
+    value.include?("(")
+  end
+
+  def value_inside_parentheses
+    match_data[2]
   end
 
   private
 
   def value_before_parentheses
-    Expression.new(match_data[1]).parse
-  end
-
-  def value_inside_parentheses
-    Expression.new(match_data[2]).parse
+    match_data[1]
   end
 
   def match_data

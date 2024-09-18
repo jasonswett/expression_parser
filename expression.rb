@@ -20,7 +20,7 @@ class Expression
       return ExpressionTree.new(root: @value)
     end
 
-    if contains_parentheses?(@value)
+    if ParentheticalExpression.contains_parentheses?(@value)
       return ParentheticalExpression.new(@value).parse
     end
 
@@ -51,10 +51,6 @@ class Expression
 
   def variable?(value)
     value.length == 1
-  end
-
-  def contains_parentheses?(value)
-    value.include?("(")
   end
 
   def split_on(value, operator)

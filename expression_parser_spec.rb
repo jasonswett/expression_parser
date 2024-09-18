@@ -194,4 +194,12 @@ RSpec.describe "expression parser" do
       end
     end
   end
+
+  context "nested parentheses" do
+    let!(:expression) { Expression.new("2(a + (b - 5))").parse }
+
+    it "has a root of *" do
+      expect(expression.root).to eq("*")
+    end
+  end
 end
